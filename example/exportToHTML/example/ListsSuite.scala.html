@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>ListsSuite.scala</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(0,0,0); }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+ListsSuite.scala</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">example 
+ 
+</span><span class="s0">import </span><span class="s1">org.scalatest.FunSuite 
+ 
+</span><span class="s0">import </span><span class="s1">org.junit.runner.RunWith 
+</span><span class="s0">import </span><span class="s1">org.scalatest.junit.JUnitRunner 
+ 
+</span><span class="s2">/** 
+ * This class implements a ScalaTest test suite for the methods in object 
+ * </span><span class="s3">`</span><span class="s2">Lists</span><span class="s3">` </span><span class="s2">that need to be implemented as part of this assignment. A test 
+ * suite is simply a collection of individual tests for some specific 
+ * component of a program. 
+ * 
+ * A test suite is created by defining a class which extends the type 
+ * </span><span class="s3">`</span><span class="s2">org.scalatest.FunSuite</span><span class="s3">`</span><span class="s2">. When running ScalaTest, it will automatically 
+ * find this class and execute all of its tests. 
+ * 
+ * Adding the </span><span class="s3">`</span><span class="s2">@RunWith</span><span class="s3">` </span><span class="s2">annotation enables the test suite to be executed 
+ * inside eclipse using the built-in JUnit test runner. 
+ * 
+ * You have two options for running this test suite: 
+ *  
+ * - Start the sbt console and run the &quot;test&quot; command 
+ * - Right-click this file in eclipse and chose &quot;Run As&quot; - &quot;JUnit Test&quot; 
+ */</span><span class="s1"> 
+@RunWith(classOf[JUnitRunner]) 
+</span><span class="s0">class </span><span class="s1">ListsSuite </span><span class="s0">extends </span><span class="s1">FunSuite { 
+ 
+  </span><span class="s2">/** 
+   * Tests are written using the </span><span class="s3">`</span><span class="s2">test</span><span class="s3">` </span><span class="s2">operator which takes two arguments: 
+   * 
+   * - A description of the test. This description has to be unique, no two 
+   *   tests can have the same description. 
+   * - The test body, a piece of Scala code that implements the test 
+   * 
+   * The most common way to implement a test body is using the method </span><span class="s3">`</span><span class="s2">assert</span><span class="s3">`</span><span class="s2"> 
+   * which tests that its argument evaluates to </span><span class="s3">`</span><span class="s2">true</span><span class="s3">`</span><span class="s2">. So one of the simplest 
+   * successful tests is the following: 
+   */</span><span class="s1"> 
+  test(</span><span class="s4">&quot;one plus one is two&quot;</span><span class="s1">)(assert(</span><span class="s5">1 </span><span class="s1">+ </span><span class="s5">1 </span><span class="s1">== </span><span class="s5">2</span><span class="s1">)) 
+ 
+ 
+  </span><span class="s2">/** 
+   * In Scala, it is allowed to pass an argument to a method using the block 
+   * syntax, i.e. </span><span class="s3">`</span><span class="s2">{ argument }</span><span class="s3">` </span><span class="s2">instead of parentheses </span><span class="s3">`</span><span class="s2">(argument)</span><span class="s3">`</span><span class="s2">. 
+   * 
+   * This allows tests to be written in a more readable manner: 
+   */</span><span class="s1"> 
+  test(</span><span class="s4">&quot;one plus one is three?&quot;</span><span class="s1">) { 
+    assert(</span><span class="s5">1 </span><span class="s1">+ </span><span class="s5">1 </span><span class="s1">== </span><span class="s5">2</span><span class="s1">) </span><span class="s2">// This assertion fails! Go ahead and fix it.</span><span class="s1"> 
+  } 
+ 
+ 
+  </span><span class="s2">/** 
+   * One problem with the previous (failing) test is that ScalaTest will 
+   * only tell you that a test failed, but it will not tell you what was 
+   * the reason for the failure. The output looks like this: 
+   * 
+   * </span><span class="s3">{{{</span><span class="s2"> 
+   *    [info] - one plus one is three? *** FAILED *** 
+   * </span><span class="s3">}}}</span><span class="s2"> 
+   * 
+   * This situation can be improved by using a special equality operator 
+   * </span><span class="s3">`</span><span class="s2">===</span><span class="s3">` </span><span class="s2">instead of </span><span class="s3">`</span><span class="s2">==</span><span class="s3">` </span><span class="s2">(this is only possible in ScalaTest). So if you 
+   * run the next test, ScalaTest will show the following output: 
+   * 
+   * </span><span class="s3">{{{</span><span class="s2"> 
+   *    [info] - details why one plus one is not three *** FAILED *** 
+   *    [info]   2 did not equal 3 (ListsSuite.scala:67) 
+   * </span><span class="s3">}}}</span><span class="s2"> 
+   * 
+   * We recommend to always use the </span><span class="s3">`</span><span class="s2">===</span><span class="s3">` </span><span class="s2">equality operator when writing tests. 
+   */</span><span class="s1"> 
+  test(</span><span class="s4">&quot;details why one plus one is not three&quot;</span><span class="s1">) { 
+    assert(</span><span class="s5">1 </span><span class="s1">+ </span><span class="s5">1 </span><span class="s1">=== </span><span class="s5">2</span><span class="s1">) </span><span class="s2">// Fix me, please!</span><span class="s1"> 
+  } 
+ 
+ 
+  </span><span class="s2">/** 
+   * In order to test the exceptional behavior of a methods, ScalaTest offers 
+   * the </span><span class="s3">`</span><span class="s2">intercept</span><span class="s3">` </span><span class="s2">operation. 
+   * 
+   * In the following example, we test the fact that the method </span><span class="s3">`</span><span class="s2">intNotZero</span><span class="s3">`</span><span class="s2"> 
+   * throws an </span><span class="s3">`</span><span class="s2">IllegalArgumentException</span><span class="s3">` </span><span class="s2">if its argument is </span><span class="s3">`</span><span class="s2">0</span><span class="s3">`</span><span class="s2">. 
+   */</span><span class="s1"> 
+  test(</span><span class="s4">&quot;intNotZero throws an exception if its argument is 0&quot;</span><span class="s1">) { 
+    intercept[IllegalArgumentException] { 
+      intNotZero(</span><span class="s5">0</span><span class="s1">) 
+    } 
+  } 
+ 
+  </span><span class="s0">def </span><span class="s1">intNotZero(x: Int): Int = { 
+    </span><span class="s0">if </span><span class="s1">(x == </span><span class="s5">0</span><span class="s1">) </span><span class="s0">throw new </span><span class="s1">IllegalArgumentException(</span><span class="s4">&quot;zero is not allowed&quot;</span><span class="s1">) 
+    </span><span class="s0">else </span><span class="s1">x 
+  } 
+ 
+ 
+  </span><span class="s2">/** 
+   * Now we finally write some tests for the list functions that have to be 
+   * implemented for this assignment. We fist import all members of the 
+   * </span><span class="s3">`</span><span class="s2">List</span><span class="s3">` </span><span class="s2">object. 
+   */</span><span class="s1">  
+  </span><span class="s0">import </span><span class="s1">Lists._ 
+   
+ 
+  </span><span class="s2">/** 
+   * We only provide two very basic tests for you. Write more tests to make 
+   * sure your </span><span class="s3">`</span><span class="s2">sum</span><span class="s3">` </span><span class="s2">and </span><span class="s3">`</span><span class="s2">max</span><span class="s3">` </span><span class="s2">methods work as expected. 
+   * 
+   * In particular, write tests for corner cases: negative numbers, zeros, 
+   * empty lists, lists with repeated elements, etc. 
+   * 
+   * It is allowed to have multiple </span><span class="s3">`</span><span class="s2">assert</span><span class="s3">` </span><span class="s2">statements inside one test, 
+   * however it is recommended to write an individual </span><span class="s3">`</span><span class="s2">test</span><span class="s3">` </span><span class="s2">statement for 
+   * every tested aspect of a method. 
+   */</span><span class="s1"> 
+  test(</span><span class="s4">&quot;sum of a few numbers&quot;</span><span class="s1">) { 
+    assert(sum(List(</span><span class="s5">1</span><span class="s1">,</span><span class="s5">2</span><span class="s1">,</span><span class="s5">0</span><span class="s1">)) === </span><span class="s5">3</span><span class="s1">) 
+  } 
+   
+  test(</span><span class="s4">&quot;max of a few numbers&quot;</span><span class="s1">) { 
+    assert(max(List(</span><span class="s5">3</span><span class="s1">, </span><span class="s5">7</span><span class="s1">, </span><span class="s5">2</span><span class="s1">)) === </span><span class="s5">7</span><span class="s1">) 
+  } 
+} 
+</span></pre>
+</body>
+</html>
